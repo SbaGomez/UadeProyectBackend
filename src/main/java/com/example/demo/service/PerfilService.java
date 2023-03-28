@@ -18,7 +18,7 @@ public class PerfilService
         this.perfilRepository = perfilRepository;
     }
 
-    private void Add(Perfil perfil)
+    public void add(Perfil perfil)
     {
         listPerfil.add(perfil);
     }

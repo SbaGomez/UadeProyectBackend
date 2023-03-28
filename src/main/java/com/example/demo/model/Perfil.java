@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class Perfil
 {
+    private int id;
     private int dni;
     private String nombre;
     private String apellido;
