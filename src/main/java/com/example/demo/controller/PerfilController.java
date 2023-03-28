@@ -15,15 +15,15 @@ public class PerfilController
     private PerfilService ps;
 
     @PostMapping("")
-    public ResponseEntity addPerfil (@RequestBody final @NotNull Perfil p)
+    public ResponseEntity addPerfil (@RequestBody final Perfil p)
     {
-        return ps.add();
+        return ps.addPerfil(p);
     }
 
-    @PostMapping(/{id}/update)
-    public ResponseEntity updatePerfil(PathVariable final @NotNull Integer id, @RequestBody final @NotNull Perfil p)
+    @PostMapping("/{id}/update")
+    public ResponseEntity updatePerfil(@PathVariable final Integer id, @RequestBody final Perfil p)
     {
-        return ps.update(id, p);
+        return ps.updatePerfil(id, p);
     }
 
 }
