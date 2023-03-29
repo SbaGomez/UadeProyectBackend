@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Perfil;
 import com.example.demo.service.PerfilService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class PerfilController
     }
 
     @PostMapping("/{id}/update")
-    public ResponseEntity updatePerfil(@PathVariable final Integer id, @RequestBody final Perfil p)
+    public ResponseEntity updatePerfil(@PathVariable final @NotNull Integer id, @RequestBody final Perfil p)
     {
         return ps.updatePerfil(id, p);
     }
