@@ -10,14 +10,12 @@ import lombok.NonNull;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "perfil")
 public class Perfil
 {
     @Id
     @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @
     private int dni;
     private String nombre;
     private String apellido;
