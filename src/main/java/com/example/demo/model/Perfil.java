@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Data
 @Entity
@@ -16,7 +16,9 @@ public class Perfil
     @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int dni;
     private String nombre;
     private String apellido;
+    private int dni;
+    private String sexo;
+    private int edad;
 }

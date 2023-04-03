@@ -4,21 +4,33 @@ import com.example.demo.model.Perfil;
 import com.example.demo.service.PerfilService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/perfil")
+@RequestMapping("perfil")
 public class PerfilController
 {
 
     @Autowired
     private PerfilService ps;
 
-    @PostMapping("")
+    /*@GetMapping
+    @RequestMapping(value = "ConsultarPersonas",method = RequestMethod.GET)
+    public ResponseEntity<?> ConsultarPersonas()
+    {
+        List<Persona> listaPersona=this.personaServiceImpl.ConsultarPersona();
+        return ResponseEntity.ok(listaPersona);
+    }*/
+
+    @PostMapping
+    @RequestMapping(value = "addPerfiles",method = RequestMethod.POST)
     public ResponseEntity addPerfil (@RequestBody final Perfil p)
     {
-        return ps.addPerfil(p);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ps.addPerfil(p));
     }
 
     @PostMapping("/{id}/update")
