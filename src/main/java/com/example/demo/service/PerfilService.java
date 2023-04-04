@@ -23,7 +23,7 @@ public class PerfilService
         this.perfilRepository = perfilRepository;
     }
 
-    public ResponseEntity addPerfil(Perfil perfil)
+    public ResponseEntity<?> addPerfil(Perfil perfil)
     {
         //listPerfil.add(perfil); //Trabajando con Lista
         try
@@ -53,7 +53,7 @@ public class PerfilService
         return perfilRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Perfil no encontrado"));
     }
 
-    public ResponseEntity deletePerfil(Integer id)
+    public ResponseEntity<?> deletePerfil(Integer id)
     {
         //listPerfil.remove(perfil);  //Trabajando con Lista
         try
@@ -68,7 +68,7 @@ public class PerfilService
 
     }
 
-    public ResponseEntity updatePerfil(Integer id, Perfil perfil)
+    public ResponseEntity<?> updatePerfil(Integer id, Perfil perfil)
     {
         /*for(int x = 0; x < listPerfil.size(); x++)
         {

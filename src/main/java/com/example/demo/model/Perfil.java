@@ -16,9 +16,14 @@ public class Perfil
     @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "apellido")
     private String apellido;
+    @Column(name = "dni")
     private int dni;
+    @Column(name = "sexo")
     private String sexo;
+    @Column(name = "edad")
     private int edad;
 }

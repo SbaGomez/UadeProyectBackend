@@ -25,14 +25,14 @@ public class PerfilController
     }*/
 
     @PostMapping
-    @RequestMapping(value = "addPerfiles",method = RequestMethod.POST)
-    public ResponseEntity addPerfil (@RequestBody final Perfil p)
+    @RequestMapping(value = "addPerfil",method = RequestMethod.POST)
+    public ResponseEntity<?> addPerfil (@RequestBody Perfil p)
     {
         return ResponseEntity.status(HttpStatus.CREATED).body(ps.addPerfil(p));
     }
 
     @PostMapping("/{id}/update")
-    public ResponseEntity updatePerfil(@PathVariable final @NotNull Integer id, @RequestBody final Perfil p)
+    public ResponseEntity<?> updatePerfil(@PathVariable final @NotNull Integer id, @RequestBody final Perfil p)
     {
         return ps.updatePerfil(id, p);
     }
