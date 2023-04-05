@@ -16,19 +16,18 @@ public class PerfilController
     @Autowired
     private PerfilService ps;
 
-    /*@GetMapping
-    @RequestMapping(value = "ConsultarPersonas",method = RequestMethod.GET)
-    public ResponseEntity<?> ConsultarPersonas()
+    @GetMapping("ConsultarPersona/{id}")
+    public ResponseEntity ConsultarPersonas(@PathVariable final @NotNull Integer id)
     {
-        List<Persona> listaPersona=this.personaServiceImpl.ConsultarPersona();
-        return ResponseEntity.ok(listaPersona);
-    }*/
+        return ResponseEntity.ok(ps.getPerfil(id));
+    }
 
     @PostMapping
     @RequestMapping(value = "addPerfil",method = RequestMethod.POST)
-    public ResponseEntity<?> addPerfil (@RequestBody Perfil p)
+    public Perfil addPerfil (@RequestBody Perfil p)
     {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ps.addPerfil(p));
+        return ps.addPerfil(p);
+        //return ResponseEntity.status(HttpStatus.CREATED).body(ps.addPerfil(p));
     }
 
     @PostMapping("/{id}/update")

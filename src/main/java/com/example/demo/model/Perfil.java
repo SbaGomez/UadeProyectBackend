@@ -21,7 +21,7 @@ public class Perfil
     @Column(name = "apellido")
     private String apellido;
     @Column(name = "dni")
-    private int dni;
+    private String dni;
     @Column(name = "sexo")
     private String sexo;
     @Column(name = "edad")

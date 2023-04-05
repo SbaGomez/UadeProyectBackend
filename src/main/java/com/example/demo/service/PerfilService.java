@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.Arrays;
+
 import static org.springframework.http.HttpStatus.*;
 
 @Service
@@ -23,19 +25,25 @@ public class PerfilService
         this.perfilRepository = perfilRepository;
     }
 
-    public ResponseEntity<?> addPerfil(Perfil perfil)
+    public Perfil addPerfil(Perfil perfil)
     {
         //listPerfil.add(perfil); //Trabajando con Lista
         try
         {
             perfilRepository.save(perfil);
-            return ResponseEntity.status(CREATED).build();
+            return this.findByDni(perfil.getDni());
 
         }
         catch (Exception e)
         {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
+            //return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
+            return null;
         }
+    }
+
+    public Perfil findByDni(String dni)
+    {
+        return (Perfil) Arrays.stream(perfilRepository.findAll().toArray()).filter(p -> ((Perfil) p).getDni().equals(dni)).findFirst().orElseThrow(() -> new HttpClientErrorException(BAD_REQUEST, "Perfil no encontrado"));
     }
 
     public Perfil getPerfil(Integer id)
