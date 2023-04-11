@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Perfil;
+import com.example.demo.models.Perfil;
 import com.example.demo.service.PerfilService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +15,7 @@ public class PerfilController
     @Autowired
     private PerfilService ps;
 
-    @GetMapping("ConsultarPersona/{id}")
+    @GetMapping("consultarPerfil/{id}")
     public ResponseEntity ConsultarPersonas(@PathVariable final @NotNull Integer id)
     {
         return ResponseEntity.ok(ps.getPerfil(id));
