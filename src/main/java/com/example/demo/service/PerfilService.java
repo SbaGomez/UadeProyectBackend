@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.models.Curso;
 import com.example.demo.models.Perfil;
 import com.example.demo.repository.PerfilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,19 +26,20 @@ public class PerfilService
         this.perfilRepository = perfilRepository;
     }
 
-    public Perfil addPerfil(Perfil perfil)
-    {
-        //listPerfil.add(perfil); //Trabajando con Lista
+    public ResponseEntity<Perfil> addPerfil(Perfil perfil) {
         try
         {
-            perfilRepository.save(perfil);
-            return this.findByDni(perfil.getDni());
-
+            // Validar el objeto de entrada
+            if (perfil == null)
+            {
+                return ResponseEntity.badRequest().build();
+            }
+            Perfil savedPerfil = perfilRepository.save(perfil);
+            return ResponseEntity.ok(this.findByDni(savedPerfil.getDni()));
         }
         catch (Exception e)
         {
-            //return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
-            return null;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

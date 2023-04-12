@@ -25,7 +25,7 @@ public class PerfilController
     @RequestMapping(value = "addPerfil",method = RequestMethod.POST)
     public Perfil addPerfil (@RequestBody Perfil p)
     {
-        return ps.addPerfil(p);
+        return ps.addPerfil(p).getBody();
         //return ResponseEntity.status(HttpStatus.CREATED).body(ps.addPerfil(p));
     }
 

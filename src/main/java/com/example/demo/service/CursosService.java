@@ -22,7 +22,7 @@ public class CursosService
         this.cursosRepository = cursosRepository;
     }
 
-    public Curso addCurso(Curso curso)
+    /*public Curso addCurso(Curso curso)
     {
         try
         {
@@ -35,20 +35,37 @@ public class CursosService
             //return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
             return null;
         }
+    }*/
+
+    public ResponseEntity<Curso> addCurso(Curso curso) {
+        try
+        {
+            // Validar el objeto de entrada
+            if (curso == null)
+            {
+                return ResponseEntity.badRequest().build();
+            }
+            Curso savedCurso = cursosRepository.save(curso);
+            return ResponseEntity.ok(this.findById(savedCurso.getId()));
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
 
     public Curso findById(Integer id)
     {
         return cursosRepository.findAll().stream()
                 .filter(c -> c.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new HttpClientErrorException(
-                BAD_REQUEST, "Curso con identificador %d no encontrado"));
+                .orElseThrow(() -> new HttpClientErrorException(BAD_REQUEST, "El curso con el identificador: " + id + " no encontrado."));
     }
 
     public Curso getCurso(Integer id)
     {
-        return cursosRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Curso no encontrado"));
+        return cursosRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST, "El curso con el identificador: " + id + " no encontrado"));
     }
 
     public ResponseEntity<?> deleteCurso(Integer id)

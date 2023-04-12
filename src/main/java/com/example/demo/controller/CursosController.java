@@ -25,7 +25,7 @@ public class CursosController
     @RequestMapping(value = "addCurso",method = RequestMethod.POST)
     public Curso addCurso (@RequestBody Curso c)
     {
-        return cs.addCurso(c);
+        return cs.addCurso(c).getBody();
     }
 
     @PostMapping("/{id}/update")
