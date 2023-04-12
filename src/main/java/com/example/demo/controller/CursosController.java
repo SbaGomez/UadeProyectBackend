@@ -16,7 +16,7 @@ public class CursosController
     private CursosService cs;
 
     @GetMapping("consultarCurso/{id}")
-    public ResponseEntity ConsultarCursos(@PathVariable final @NotNull Integer id)
+    public ResponseEntity consultarCursos(@PathVariable final @NotNull Integer id)
     {
         return ResponseEntity.ok(cs.getCurso(id));
     }
@@ -28,14 +28,14 @@ public class CursosController
         return cs.addCurso(c).getBody();
     }
 
-    @PostMapping("/{id}/update")
-    public ResponseEntity<?> updateCurso(@PathVariable final @NotNull Integer id, @RequestBody final Curso c)
+    @PostMapping("/{id}/updateCurso")
+    public ResponseEntity<?> updateCursos(@PathVariable final @NotNull Integer id, @RequestBody final Curso c)
     {
         return cs.updateCurso(id, c);
     }
 
-    @PostMapping("/{id}/delete")
-    public ResponseEntity deleteCurso(@PathVariable final @NotNull Integer id)
+    @PostMapping("/{id}/deleteCurso")
+    public ResponseEntity deleteCursos(@PathVariable final @NotNull Integer id)
     {
         return cs.deleteCurso(id);
     }

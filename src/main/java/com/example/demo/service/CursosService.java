@@ -22,21 +22,6 @@ public class CursosService
         this.cursosRepository = cursosRepository;
     }
 
-    /*public Curso addCurso(Curso curso)
-    {
-        try
-        {
-            cursosRepository.save(curso);
-            return this.findById(curso.getId());
-
-        }
-        catch (Exception e)
-        {
-            //return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
-            return null;
-        }
-    }*/
-
     public ResponseEntity<Curso> addCurso(Curso curso) {
         try
         {

@@ -16,7 +16,7 @@ public class PerfilController
     private PerfilService ps;
 
     @GetMapping("consultarPerfil/{id}")
-    public ResponseEntity ConsultarPersonas(@PathVariable final @NotNull Integer id)
+    public ResponseEntity consultarPerfiles(@PathVariable final @NotNull Integer id)
     {
         return ResponseEntity.ok(ps.getPerfil(id));
     }
@@ -29,8 +29,8 @@ public class PerfilController
         //return ResponseEntity.status(HttpStatus.CREATED).body(ps.addPerfil(p));
     }
 
-    @PostMapping("/{id}/update")
-    public ResponseEntity<?> updatePerfil(@PathVariable final @NotNull Integer id, @RequestBody final Perfil p)
+    @PostMapping("/{id}/updatePerfil")
+    public ResponseEntity<?> updatePerfiles(@PathVariable final @NotNull Integer id, @RequestBody final Perfil p)
     {
         return ps.updatePerfil(id, p);
     }
