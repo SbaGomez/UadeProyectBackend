@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Data
@@ -14,13 +16,21 @@ import org.jetbrains.annotations.NotNull;
 public class Perfil
 {
     @Id
-    @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
+    @ManyToMany
+    @JoinTable(
+            name="perfilesxcursos",
+            joinColumns=
+            @JoinColumn(name="perfilId"),
+            inverseJoinColumns=
+            @JoinColumn(name="cursoId"))
+    private List<Curso> cursos;
+    /*@NotNull
     @ManyToOne
     @JoinColumn(name = "cursoid")
-    private Curso curso;
+    private Curso curso;*/
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "apellido")
