@@ -57,8 +57,7 @@ public class PerfilService
 
     public Perfil getPerfil(Integer id)
     {
-
-        return perfilRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Perfil no encontrado"));
+        return perfilRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST, "El perfil con el identificador: " + id + " no encontrado."));
     }
 
     public ResponseEntity<?> deletePerfil(Integer id)
@@ -78,12 +77,12 @@ public class PerfilService
     public ResponseEntity<?> updatePerfil(Integer id, Perfil perfil)
     {
         try{
-            Perfil p = perfilRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Perfil no encontrado"));
+            Perfil p = perfilRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST, "El perfil con el identificador: " + id + " no encontrado."));
             p.setDni(perfil.getDni());
             p.setApellido(perfil.getApellido());
             p.setNombre(perfil.getNombre());
-            perfilRepository.save(p);
-            return ResponseEntity.status(OK).build();
+            Perfil savedPerfil = perfilRepository.save(perfil);
+            return ResponseEntity.ok(this.findByDni(savedPerfil.getDni()));
         }
         catch (Exception e)
         {
