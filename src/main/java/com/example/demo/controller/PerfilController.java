@@ -16,7 +16,7 @@ public class PerfilController
     private PerfilService ps;
 
     @GetMapping("consultarPerfil/{id}")
-    public ResponseEntity consultarPerfiles(@PathVariable final @NotNull Integer id)
+    public ResponseEntity<?> consultarPerfiles(@PathVariable final @NotNull Integer id)
     {
         return ResponseEntity.ok(ps.getPerfil(id));
     }

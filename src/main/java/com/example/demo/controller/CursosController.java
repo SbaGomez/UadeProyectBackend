@@ -1,11 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.Curso;
+import com.example.demo.models.PerfilDTO;
 import com.example.demo.service.CursosService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("curso")
@@ -35,9 +38,15 @@ public class CursosController
     }
 
     @PostMapping("/{id}/deleteCurso")
-    public ResponseEntity deleteCursos(@PathVariable final @NotNull Integer id)
+    public ResponseEntity<?> deleteCursos(@PathVariable final @NotNull Integer id)
     {
         return cs.deleteCurso(id);
+    }
+
+    @GetMapping("/{id}/perfilList")
+    public List<PerfilDTO> getCursoPerfil(@PathVariable Integer id)
+    {
+        return cs.getCursoPerfil(id);
     }
 
 }

@@ -1,31 +1,39 @@
 package com.example.demo.service;
 
 import com.example.demo.models.Perfil;
+import com.example.demo.models.PerfilDTO;
+import com.example.demo.repository.CursosRepository;
 import com.example.demo.repository.PerfilRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
 @Service
 public class PerfilService
 {
-    //List<Perfil> listPerfil;
-
     private final PerfilRepository perfilRepository;
+    private final CursosRepository cursosRepository;
+    private ModelMapper mm = new ModelMapper();
 
     @Autowired
-    public PerfilService(PerfilRepository perfilRepository)
+    public PerfilService(PerfilRepository perfilRepository,
+                         CursosRepository cursosRepository)
     {
         this.perfilRepository = perfilRepository;
+        this.cursosRepository = cursosRepository;
     }
 
-    public ResponseEntity<Perfil> addPerfil(Perfil perfil) {
+    public ResponseEntity<Perfil> addPerfil(Perfil perfil)
+    {
         try
         {
             // Validar el objeto de entrada
@@ -49,22 +57,12 @@ public class PerfilService
 
     public Perfil getPerfil(Integer id)
     {
-        /*for(int x = 0; x < listPerfil.size(); x++)
-        {
-            Perfil p = listPerfil.get(x);
-            if(p.getDni() == id)
-            {
-                return p;
-            }
-        }
-        return null;*/
 
         return perfilRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Perfil no encontrado"));
     }
 
     public ResponseEntity<?> deletePerfil(Integer id)
     {
-        //listPerfil.remove(perfil);  //Trabajando con Lista
         try
         {
             perfilRepository.deleteById(id);
@@ -79,14 +77,6 @@ public class PerfilService
 
     public ResponseEntity<?> updatePerfil(Integer id, Perfil perfil)
     {
-        /*for(int x = 0; x < listPerfil.size(); x++)
-        {
-            if(listPerfil.get(x).getDni() == perfil.getDni())
-            {
-                listPerfil.set(x,perfil);
-            }
-        }*/
-
         try{
             Perfil p = perfilRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Perfil no encontrado"));
             p.setDni(perfil.getDni());

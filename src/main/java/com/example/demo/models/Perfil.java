@@ -15,6 +15,7 @@ import java.util.List;
 public class Perfil
 {
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull

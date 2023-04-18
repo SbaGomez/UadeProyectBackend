@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,13 +25,8 @@ public class Curso
     @Column(name = "duracion")
     private int duracion;
     @NotNull
-    @ManyToMany
-    @JoinTable(
-            name="perfilesxcursos",
-            joinColumns=
-            @JoinColumn(name="cursoId"),
-            inverseJoinColumns=
-            @JoinColumn(name="perfilId"))
+    @ManyToMany(mappedBy = "cursos")
+    @JsonIgnore
     private List<Perfil> perfiles;
     /*@OneToMany(mappedBy = "curso")
     @JsonIgnore
