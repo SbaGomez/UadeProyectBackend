@@ -30,7 +30,7 @@ public class PerfilController
     }
 
     @PostMapping("/{id}/updatePerfil")
-    public ResponseEntity updatePerfiles(@PathVariable final @NotNull Integer id, @RequestBody final Perfil p)
+    public ResponseEntity<Perfil> updatePerfiles(@PathVariable final @NotNull Integer id, @RequestBody final Perfil p)
     {
         return ps.updatePerfil(id, p);
     }
