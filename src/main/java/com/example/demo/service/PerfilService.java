@@ -74,14 +74,19 @@ public class PerfilService
 
     }
 
-    public ResponseEntity<?> updatePerfil(Integer id, Perfil perfil)
+    public ResponseEntity updatePerfil(Integer id, Perfil perfil)
     {
         try{
             Perfil p = perfilRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST, "El perfil con el identificador: " + id + " no encontrado."));
+            p.setCursos(perfil.getCursos());
+            p.setEdad(perfil.getEdad());
+            p.setSexo(perfil.getSexo());
             p.setDni(perfil.getDni());
             p.setApellido(perfil.getApellido());
             p.setNombre(perfil.getNombre());
-            Perfil savedPerfil = perfilRepository.save(perfil);
+            //perfilRepository.save(p);
+            //return ResponseEntity.status(OK).build();
+            Perfil savedPerfil = perfilRepository.save(p);
             return ResponseEntity.ok(this.findByDni(savedPerfil.getDni()));
         }
         catch (Exception e)
