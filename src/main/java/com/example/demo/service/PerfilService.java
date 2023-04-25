@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.models.Perfil;
-import com.example.demo.models.PerfilDTO;
 import com.example.demo.repository.CursosRepository;
 import com.example.demo.repository.PerfilRepository;
 import org.modelmapper.ModelMapper;
@@ -11,9 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -21,15 +18,11 @@ import static org.springframework.http.HttpStatus.*;
 public class PerfilService
 {
     private final PerfilRepository perfilRepository;
-    private final CursosRepository cursosRepository;
-    private ModelMapper mm = new ModelMapper();
 
     @Autowired
-    public PerfilService(PerfilRepository perfilRepository,
-                         CursosRepository cursosRepository)
+    public PerfilService(PerfilRepository perfilRepository)
     {
         this.perfilRepository = perfilRepository;
-        this.cursosRepository = cursosRepository;
     }
 
     public ResponseEntity<Perfil> addPerfil(Perfil perfil)
