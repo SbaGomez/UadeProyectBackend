@@ -1,9 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.models.Perfil;
-import com.example.demo.repository.CursosRepository;
 import com.example.demo.repository.PerfilRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
