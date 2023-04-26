@@ -76,8 +76,7 @@ public class PerfilService
             p.setDni(perfil.getDni());
             p.setApellido(perfil.getApellido());
             p.setNombre(perfil.getNombre());
-            Perfil savedPerfil = perfilRepository.save(p);
-            return ResponseEntity.ok(this.findByDni(savedPerfil.getDni()));
+            return ResponseEntity.ok(perfilRepository.save(p));
         }
         catch (Exception e)
         {
