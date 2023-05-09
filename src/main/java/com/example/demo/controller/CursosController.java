@@ -5,10 +5,15 @@ import com.example.demo.models.PerfilDTO;
 import com.example.demo.service.CursosService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("curso")
@@ -23,6 +28,17 @@ public class CursosController
     {
         return ResponseEntity.ok(cs.getCurso(id));
     }
+
+    @GetMapping("getAll")
+    public ResponseEntity<List<Curso>> getAll() {
+        try {
+            List<Curso> cursos = cs.getAll();
+            return ResponseEntity.ok(cursos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
     @PostMapping
     @RequestMapping(value = "addCurso",method = RequestMethod.POST)

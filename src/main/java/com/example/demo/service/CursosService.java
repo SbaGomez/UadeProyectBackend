@@ -31,6 +31,10 @@ public class CursosService {
         this.perfilRepository = perfilRepository;
     }
 
+    public List<Curso> getAll() {
+        return cursosRepository.findAll();
+    }
+
     public ResponseEntity<Curso> addCurso(Curso curso) {
         try {
             // Validar el objeto de entrada
