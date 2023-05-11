@@ -17,6 +17,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("curso")
+@CrossOrigin(origins = "*")
 public class CursosController
 {
 
