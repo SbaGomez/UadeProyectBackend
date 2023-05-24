@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.exceptions.BadRequestException;
 import com.example.demo.models.Curso;
 import com.example.demo.models.PerfilDTO;
 import com.example.demo.service.CursosService;
+import com.example.demo.tools.ValidateService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestController
 @RequestMapping("curso")
@@ -40,12 +43,29 @@ public class CursosController
         }
     }
 
+    @PostMapping("/addCurso")
+    public ResponseEntity<Object> addCurso(@RequestBody Map<String, String> request) {
+        Curso curso = new Curso();
+        curso.setNombre(request.get("nombre"));
+        curso.setDuracion(Integer.parseInt(request.get("duracion")));
+        List<String> errors = ValidateService.validateUser(curso);
+        try {
+            // Validar el objeto de entrada
+            if (!errors.isEmpty()) {
+                String errorMessage = String.join("\n", errors);
+                throw new BadRequestException(errorMessage);
+            }
 
-    @PostMapping
-    @RequestMapping(value = "addCurso",method = RequestMethod.POST)
-    public Curso addCurso (@RequestBody Curso c)
-    {
-        return cs.addCurso(c).getBody();
+            cs.addCurso(curso);
+            return ResponseEntity.status(OK).body("Curso registrado");
+
+        }catch (BadRequestException e) {
+            return ResponseEntity.status(BAD_REQUEST).body(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(BAD_REQUEST).body("Hubo un error al cargar el usuario");
+        } catch (Exception e) {
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("Internal Server Error");
+        }
     }
 
     @PostMapping("/{id}/updateCurso")

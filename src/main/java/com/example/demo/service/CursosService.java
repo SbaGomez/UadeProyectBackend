@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
@@ -35,19 +38,10 @@ public class CursosService {
         return cursosRepository.findAll();
     }
 
-    public ResponseEntity<Curso> addCurso(Curso curso) {
-        try {
-            // Validar el objeto de entrada
-            if (curso == null) {
-                return ResponseEntity.badRequest().build();
-            }
-            Curso savedCurso = cursosRepository.save(curso);
-            return ResponseEntity.ok(this.findById(savedCurso.getId()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public void addCurso (@RequestBody Curso c)
+    {
+        cursosRepository.save(c);
     }
-
 
     public Curso findById(Integer id) {
         return cursosRepository.findAll().stream()
