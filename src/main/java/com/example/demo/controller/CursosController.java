@@ -57,12 +57,13 @@ public class CursosController
             }
 
             cs.addCurso(curso);
+            //return ResponseEntity.status(OK).build();
             return ResponseEntity.status(OK).body("Curso registrado");
 
         }catch (BadRequestException e) {
             return ResponseEntity.status(BAD_REQUEST).body(e.getMessage());
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(BAD_REQUEST).body("Hubo un error al cargar el usuario");
+            return ResponseEntity.status(BAD_REQUEST).body("Hubo un error al cargar el curso");
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("Internal Server Error");
         }
