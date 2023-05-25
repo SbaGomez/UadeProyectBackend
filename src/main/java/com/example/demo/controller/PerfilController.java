@@ -1,24 +1,45 @@
 package com.example.demo.controller;
 
+import com.example.demo.models.Curso;
 import com.example.demo.models.Perfil;
 import com.example.demo.service.PerfilService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("perfil")
+@CrossOrigin(origins = "*")
 public class PerfilController
 {
 
     @Autowired
     private PerfilService ps;
 
+    @GetMapping("getAll")
+    public ResponseEntity<List<Perfil>> getAll() {
+        try {
+            List<Perfil> perfiles = ps.getAll();
+            return ResponseEntity.ok(perfiles);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @GetMapping("consultarPerfil/{id}")
     public ResponseEntity<?> consultarPerfiles(@PathVariable final @NotNull Integer id)
     {
         return ResponseEntity.ok(ps.getPerfil(id));
+    }
+
+    @PostMapping("/{id}/deletePerfil")
+    public ResponseEntity<?> deletePerfil(@PathVariable final @NotNull Integer id)
+    {
+        return ps.deleteCurso(id);
     }
 
     @PostMapping
@@ -29,7 +50,7 @@ public class PerfilController
     }
 
     @PostMapping("/{id}/updatePerfil")
-    public ResponseEntity<Perfil> updatePerfiles(@PathVariable final @NotNull Integer id, @RequestBody final Perfil p)
+    public ResponseEntity<?> updatePerfiles(@PathVariable final @NotNull Integer id, @RequestBody final Perfil p)
     {
         return ps.updatePerfil(id, p);
     }
