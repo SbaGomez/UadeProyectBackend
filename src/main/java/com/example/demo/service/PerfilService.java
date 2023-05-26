@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Arrays;
@@ -28,23 +29,10 @@ public class PerfilService
     public List<Perfil> getAll() {
         return perfilRepository.findAll();
     }
-    public ResponseEntity<Perfil> addPerfil(Perfil perfil)
-    {
-        try
-        {
-            // Validar el objeto de entrada
-            if (perfil == null)
-            {
-                return ResponseEntity.badRequest().build();
-            }
 
-            Perfil savedPerfil = perfilRepository.save(perfil);
-            return ResponseEntity.ok(this.findByDni(savedPerfil.getDni()));
-        }
-        catch (Exception e)
-        {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public void addPerfil (@RequestBody Perfil p)
+    {
+        perfilRepository.save(p);
     }
 
     public Perfil findByDni(String dni)

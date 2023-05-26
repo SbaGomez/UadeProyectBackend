@@ -27,12 +27,6 @@ public class CursosController
     @Autowired
     private CursosService cs;
 
-    @GetMapping("consultarCurso/{id}")
-    public ResponseEntity consultarCursos(@PathVariable final @NotNull Integer id)
-    {
-        return ResponseEntity.ok(cs.getCurso(id));
-    }
-
     @GetMapping("getAll")
     public ResponseEntity<List<Curso>> getAll() {
         try {
@@ -43,12 +37,18 @@ public class CursosController
         }
     }
 
+    @GetMapping("consultarCurso/{id}")
+    public ResponseEntity consultarCursos(@PathVariable final @NotNull Integer id)
+    {
+        return ResponseEntity.ok(cs.getCurso(id));
+    }
+
     @PostMapping("/addCurso")
     public ResponseEntity<Object> addCurso(@RequestBody Map<String, String> request) {
         Curso curso = new Curso();
         curso.setNombre(request.get("nombre"));
         curso.setDuracion(Integer.parseInt(request.get("duracion")));
-        List<String> errors = ValidateService.validateUser(curso);
+        List<String> errors = ValidateService.validateCurso(curso);
         try {
             // Validar el objeto de entrada
             if (!errors.isEmpty()) {
