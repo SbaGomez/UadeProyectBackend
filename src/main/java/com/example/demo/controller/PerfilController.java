@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.exceptions.BadRequestException;
-import com.example.demo.models.Curso;
 import com.example.demo.models.Perfil;
 import com.example.demo.service.PerfilService;
 import com.example.demo.tools.ValidateService;
@@ -47,8 +46,8 @@ public class PerfilController
         return ps.deleteCurso(id);
     }
 
-    @PostMapping("/addPerfil")
-    public ResponseEntity<Object> addPerfil(@RequestBody Map<String, String> request) {
+    @PostMapping("/{cursoId}/addPerfil")
+    public ResponseEntity<Object> addPerfil(@PathVariable Integer cursoId, @RequestBody @NotNull Map<String, String> request) {
         Perfil perfil = new Perfil();
         perfil.setNombre(request.get("nombre"));
         perfil.setApellido(request.get("apellido"));
@@ -63,7 +62,7 @@ public class PerfilController
                 throw new BadRequestException(errorMessage);
             }
 
-            ps.addPerfil(perfil);
+            ps.addPerfil(cursoId, perfil);
             return ResponseEntity.status(OK).body("Perfil registrado");
 
         }catch (BadRequestException e) {
@@ -71,6 +70,7 @@ public class PerfilController
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(BAD_REQUEST).body("Hubo un error al cargar el perfil");
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("Internal Server Error");
         }
     }

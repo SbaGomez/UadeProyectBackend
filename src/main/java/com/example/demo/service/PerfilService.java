@@ -2,14 +2,18 @@ package com.example.demo.service;
 
 import com.example.demo.models.Curso;
 import com.example.demo.models.Perfil;
+import com.example.demo.repository.CursosRepository;
 import com.example.demo.repository.PerfilRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,19 +23,24 @@ import static org.springframework.http.HttpStatus.*;
 public class PerfilService
 {
     private final PerfilRepository perfilRepository;
+    private final CursosRepository cursosRepository;
 
     @Autowired
-    public PerfilService(PerfilRepository perfilRepository)
+    public PerfilService(PerfilRepository perfilRepository, CursosRepository cursosRepository)
     {
         this.perfilRepository = perfilRepository;
+        this.cursosRepository = cursosRepository;
     }
 
     public List<Perfil> getAll() {
         return perfilRepository.findAll();
     }
 
-    public void addPerfil (@RequestBody Perfil p)
+    public void addPerfil (@PathVariable Integer cursoId, @RequestBody @NotNull Perfil p)
     {
+        List<Curso> curso = new ArrayList<>();
+        curso.add(cursosRepository.findById(cursoId).orElseThrow());
+        p.setCursos(curso);
         perfilRepository.save(p);
     }
 
